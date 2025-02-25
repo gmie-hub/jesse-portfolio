@@ -1,20 +1,37 @@
-import { Box, Container, Flex, Grid } from "@chakra-ui/react";
-import Sidebar from "@jes/components/sidebar";
+import {
+  Box,
+  Container,
+  Flex,
+  Grid,
+  useBreakpointValue,
+} from "@chakra-ui/react";
 import routes from "@jes/routes";
+import { useState } from "react";
 import { Outlet, useLocation } from "react-router-dom";
+import Sidebar from "./sidebar";
+import MobileNav from "./mobileNav";
 
 const Layout = () => {
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const isSmallScreen = useBreakpointValue({ base: true, md: false });
   const location = useLocation();
 
-  const isMyAIRoute = location.pathname === routes.main.myAI;  
+  const isMyAIRoute =
+    location.pathname === routes.main.myAI || location.pathname === routes.home;
+
+  const toggleSidebar = () => setIsSidebarOpen(!isSidebarOpen);
 
   return (
     <Container
       minW="100%"
       position="relative"
-      overflow="hidden"
       p="0"
-      background={isMyAIRoute ? "linear-gradient(to bottom right, #9747ff 2%, #3165A1 40%, #ffffff);" : 'none'}
+      background={
+        isMyAIRoute
+          ? // ? '#CAD9FF'
+            "linear-gradient(to bottom right, #7647ED87 2%, #CAD9FF 20%);"
+          : "none"
+      }
     >
       {!isMyAIRoute && (
         <video
@@ -38,12 +55,24 @@ const Layout = () => {
         </video>
       )}
 
-      <Grid templateColumns="54px 1fr" position="relative" zIndex="1">
-        <Box>
-          <Sidebar />
-        </Box>
+      <Grid
+        templateColumns={isSmallScreen ? "1fr" : "54px 1fr"}
+        position="relative"
+        zIndex="1"
+      >
+        {!isSmallScreen && (
+          <Box position="sticky">
+            <Sidebar />
+          </Box>
+        )}
 
-        <Flex justifyContent="center">
+        <MobileNav
+          isSidebarOpen={isSidebarOpen}
+          isSmallScreen={isSmallScreen}
+          toggleSidebar={toggleSidebar}
+        />
+
+        <Flex justifyContent="center" zIndex="2" overflow="auto">
           <Outlet />
         </Flex>
       </Grid>

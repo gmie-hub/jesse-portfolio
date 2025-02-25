@@ -1,6 +1,18 @@
 import { Box, Flex, Image, Text, VStack } from "@chakra-ui/react";
+import { items } from "@jes/utils/data";
+import { useState } from "react";
+import { Link } from "react-router-dom";
 
 const Sidebar = () => {
+  const [clickedItem, setClickedItem] = useState<string | null>(null);
+
+  const handleClick = (itemText: string) => {
+    setClickedItem(itemText);
+    setTimeout(() => {
+      setClickedItem(null);
+    }, 300);
+  };
+
   return (
     <Flex flexDir="column" bg="#00000099" h="100vh" px="1" py="5" gap="32">
       <Box>
@@ -19,19 +31,23 @@ const Sidebar = () => {
             pt="2"
             pb="1"
             borderRadius="md"
+            className={clickedItem === item.text ? "zoomInOut" : ""}
+            onClick={() => handleClick(item.text)}
             _hover={{
               transform: "scale(1.05)",
               transition: "transform 0.2s ease-in-out",
-              bg: "#000"
+              bg: "#000",
             }}
           >
-            <VStack>
-              <Box>
-                <Image src={item.icon} alt={item.icon} />
-              </Box>
-              
-              <Text fontSize="9px">{item.text}</Text>
-            </VStack>
+            <Link to={item.to} style={{ color: "#fff" }}>
+              <VStack>
+                <Box>
+                  <Image src={item.icon} alt={item.icon} />
+                </Box>
+
+                <Text fontSize="9px">{item.text}</Text>
+              </VStack>
+            </Link>
           </Box>
         ))}
       </VStack>
@@ -40,11 +56,3 @@ const Sidebar = () => {
 };
 
 export default Sidebar;
-
-const items = [
-  { icon: "/home.svg", text: "Home" },
-  { icon: "/about.svg", text: "About" },
-  { icon: "/project.svg", text: "Projects" },
-  { icon: "/gallery.svg", text: "Gallery" },
-  { icon: "/ai.svg", text: "My AI" },
-];

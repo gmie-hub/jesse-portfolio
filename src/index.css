@@ -51,7 +51,8 @@ a:hover {
   color: #535bf2;
 }
 
-body, html {
+body,
+html {
   margin: 0;
   min-width: 100vw;
   min-height: 100vh;
@@ -70,4 +71,58 @@ h1 {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateY(100%);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideDown {
+  from {
+    transform: translateY(0);
+  }
+  to {
+    transform: translateY(calc(100% - initial));
+  }
+}
+
+.slideUp {
+  animation: slideUp 0.3s ease-in-out forwards;
+}
+
+.slideDown {
+  animation: slideDown 0.3s ease-in-out forwards;
+}
+
+@keyframes fadeInZoomOut {
+  from {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.fadeInZoomOut {
+  animation: fadeInZoomOut 0.8s ease-in-out forwards;
+}
+
+@keyframes zoomInOut {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.2);
+  }
+}
+
+.zoomInOut {
+  animation: zoomInOut 0.3s ease-in-out;
 }

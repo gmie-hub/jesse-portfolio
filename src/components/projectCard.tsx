@@ -1,9 +1,14 @@
 import { Box } from "@chakra-ui/react";
 import { FC, PropsWithChildren } from "react";
 
-const ProjectCard: FC<PropsWithChildren> = ({ children }) => {
+interface ComponentProps extends PropsWithChildren {
+  bg?: string;
+  h?: string;
+}
+
+const ProjectCard: FC<ComponentProps> = ({ children, h, bg="rgba(0, 0, 0, 0.70)" }) => {
   return (
-    <Box bg="rgba(0, 0, 0, 0.70)" borderRadius="md" p="4">
+    <Box bgColor={bg} borderRadius="lg" p="4" h={h} zIndex="2">
       {children}
     </Box>
   );
