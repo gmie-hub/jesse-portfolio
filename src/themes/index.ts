@@ -1,6 +1,6 @@
 import { defineConfig } from "@chakra-ui/react";
 
-const config = defineConfig({
+export const config = defineConfig({
   theme: {
     tokens: {
       colors: {},
