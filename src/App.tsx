@@ -1,12 +1,12 @@
 import "./App.css";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import routes from "./routes";
-import About from "./pages/about";
 import Gallery from "./pages/gallery";
-import Projects from "./pages/projects";
 import MyAI from "./pages/myAI";
 import Layout from "./layout";
 import Home from "./pages/home";
+import About from "./pages/about";
+import Projects from "./pages/projects";
 
 function App() {
   const appRoutes = [

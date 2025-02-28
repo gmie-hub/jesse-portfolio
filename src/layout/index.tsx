@@ -72,7 +72,7 @@ const Layout = () => {
           toggleSidebar={toggleSidebar}
         />
 
-        <Flex justifyContent="center" zIndex="2" overflow="auto">
+        <Flex justifyContent="center" zIndex="2" overflow="auto" w="100%">
           <Outlet />
         </Flex>
       </Grid>

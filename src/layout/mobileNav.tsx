@@ -9,6 +9,7 @@ import {
 } from "@chakra-ui/react";
 import { items } from "@jes/utils/data";
 import { FC, useEffect, useRef } from "react";
+import { Link } from "react-router-dom";
 
 interface ComponentProps {
   isSmallScreen: boolean | undefined;
@@ -67,13 +68,17 @@ const MobileNav: FC<ComponentProps> = (props) => {
                 {items.map((item) => (
                   <GridItem key={item.text} className="fadeInZoomOut">
                     <Box px="1.5" pt="2" pb="1" borderRadius="md">
-                      <VStack>
-                        <Box>
-                          <Image src={item.icon} alt={item.icon} />
-                        </Box>
+                      <Link to={item.to} style={{ color: "#fff" }}>
+                        <VStack>
+                          <Box>
+                            <Image src={item.icon} alt={item.icon} />
+                          </Box>
 
-                        <Text fontSize="xs" fontWeight="semibold">{item.text}</Text>
-                      </VStack>
+                          <Text fontSize="xs" fontWeight="semibold">
+                            {item.text}
+                          </Text>
+                        </VStack>
+                      </Link>
                     </Box>
                   </GridItem>
                 ))}
