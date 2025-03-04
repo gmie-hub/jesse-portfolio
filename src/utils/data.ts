@@ -33,3 +33,13 @@ export const items = [
   { icon: "/gallery.svg", text: "Gallery", to: routes.main.gallery },
   { icon: "/ai.svg", text: "My AI", to: routes.main.myAI },
 ];
+
+export const images = [
+  "/knowble.png",
+  "/termii.png",
+  "/sotel.png",
+  "/rigo_health.png",
+  "/lyte.png",
+  "/ideospace.png",
+  "/hotSpicy.png",
+];

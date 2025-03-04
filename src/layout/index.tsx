@@ -23,9 +23,11 @@ const Layout = () => {
 
   return (
     <Container
-      minW="100%"
+      minW="100vw"
+      minH="100vh"
       position="relative"
       p="0"
+      overflow="hidden"
       background={
         isMyAIRoute
           ? // ? '#CAD9FF'
@@ -59,6 +61,9 @@ const Layout = () => {
         templateColumns={isSmallScreen ? "1fr" : "54px 1fr"}
         position="relative"
         zIndex="1"
+        overflow="hidden"
+        w="100vw"
+        h="100vh"
       >
         {!isSmallScreen && (
           <Box position="sticky">
@@ -72,7 +77,13 @@ const Layout = () => {
           toggleSidebar={toggleSidebar}
         />
 
-        <Flex justifyContent="center" zIndex="2" overflow="auto" w="100%">
+        <Flex
+          justifyContent="center"
+          zIndex="2"
+          overflow="hidden"
+          w="100%"
+          h="100%"
+        >
           <Outlet />
         </Flex>
       </Grid>
