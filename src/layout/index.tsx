@@ -71,7 +71,7 @@ const Layout = () => {
           </Box>
         )}
 
-        {isProjectOpen && <ProjectDrawerContent />}
+        {isProjectOpen && isSmallScreen && <ProjectDrawerContent />}
 
         {isSmallScreen && (
           <MobileNav

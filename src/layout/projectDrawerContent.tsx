@@ -31,7 +31,7 @@ const ProjectDrawerContent = () => {
         "scrollbar-width": "none", // Firefox
       }}
     >
-      <Text color="#E1E1E1" textAlign="center" mb="2">
+      <Text color="#e1e1e1" textAlign="center" mb="2">
         Project
       </Text>
 
