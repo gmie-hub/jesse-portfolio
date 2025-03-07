@@ -19,7 +19,7 @@ const PhotoGrid: FC<ComponentProps> = (props) => {
   const {
     src,
     controls,
-    borderRadius="4xl",
+    borderRadius={ base: "2xl", md: "4xl"},
     borderBottomLeftRadius,
     borderBottomRightRadius,
     borderTopLeftRadius,

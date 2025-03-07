@@ -7,36 +7,6 @@ import { useSwipeable } from "react-swipeable";
 const MobileView = () => {
   const containerRef = useRef<HTMLDivElement>(null);
 
-  // Update container width dynamically
-  // useEffect(() => {
-  //   const updateWidth = () => {
-  //     if (containerRef.current) {
-  //       setContainerWidth(containerRef.current.offsetWidth);
-  //     }
-  //   };
-
-  //   updateWidth();
-  //   window.addEventListener("resize", updateWidth);
-  //   return () => window.removeEventListener("resize", updateWidth);
-  // }, []);
-
-  //   const handleDragEnd = (_: any, info: PanInfo) => {
-  //     const { offset, velocity } = info;
-  //     const swipeThreshold = 50;
-  //     const direction =
-  //       offset.x > swipeThreshold
-  //         ? "right"
-  //         : offset.x < -swipeThreshold
-  //         ? "left"
-  //         : null;
-
-  //     if (direction === "left" && activeIndex < images.length - 1) {
-  //       setActiveIndex(activeIndex + 1);
-  //     } else if (direction === "right" && activeIndex > 0) {
-  //       setActiveIndex(activeIndex - 1);
-  //     }
-  //   };
-
   const [currentIndex, setCurrentIndex] = useState(0);
   const [direction, setDirection] = useState(0);
 
@@ -65,24 +35,8 @@ const MobileView = () => {
       h="80vh"
       overflow="hidden"
     >
-      {/* <MotionBox
-      {...handlers}
-        display="flex"
-        w={`${images.length * 100}vw`}
-        h="100%"
-        drag="x"
-        dragConstraints={{
-          left: -(containerWidth * (images.length - 1)),
-          right: 0,
-        }}
-        animate={{ x: -activeIndex * containerWidth }}
-        transition={{ type: "spring", stiffness: 300, damping: 30 }}
-        onDragEnd={handleDragEnd}
-      > */}
-      {/* {images.map((src, index) => ( */}
       <Box
         {...handlers}
-        // key={index}
         w="100vw"
         h="100%"
         flex="0 0 auto"
@@ -99,13 +53,12 @@ const MobileView = () => {
             exit={{ x: direction > 0 ? "-100%" : "100%", opacity: 0 }}
             transition={{ duration: 0.4, ease: "easeInOut" }}
             style={{ position: "absolute" }}
-            
           >
             <Image
               src={images[currentIndex]}
               alt={`Image ${currentIndex + 1}`}
               maxW="100%"
-              maxH="70%"
+              maxH="50%"
               objectFit="cover"
               borderRadius="lg"
               boxShadow="lg"
@@ -113,8 +66,6 @@ const MobileView = () => {
           </motion.div>
         </AnimatePresence>
       </Box>
-      {/* ))} */}
-      {/* </MotionBox> */}
 
       <HStack position="absolute" bottom="20px" zIndex="3">
         {images.map((_, index) => (

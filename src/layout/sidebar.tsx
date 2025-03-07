@@ -3,11 +3,16 @@ import { items } from "@jes/utils/data";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 
-const Sidebar = () => {
+const Sidebar = ({
+  setIsProjectOpen,
+}: {
+  setIsProjectOpen: React.Dispatch<React.SetStateAction<boolean>>;
+}) => {
   const [clickedItem, setClickedItem] = useState<string | null>(null);
 
   const handleClick = (itemText: string) => {
     setClickedItem(itemText);
+
     setTimeout(() => {
       setClickedItem(null);
     }, 300);
@@ -15,7 +20,7 @@ const Sidebar = () => {
 
   return (
     <Flex flexDir="column" bg="#00000099" h="100vh" px="1" py="5" gap="32">
-      <Box>
+      <Box textAlign="center">
         <Text fontSize="6.75px" fontWeight="bold">
           JOSSY DAVID
         </Text>
@@ -24,22 +29,26 @@ const Sidebar = () => {
       </Box>
 
       <VStack gap="5">
-        {items.map((item) => (
+        {items.map((item, index) => (
           <Box
-            key={item.text}
+            key={index}
             px="1.5"
             pt="2"
             pb="1"
             borderRadius="md"
             className={clickedItem === item.text ? "zoomInOut" : ""}
-            onClick={() => handleClick(item.text)}
+              onClick={() =>
+                index === items.length - 3
+                  ? setIsProjectOpen((prev: boolean) => !prev)
+                  : handleClick(item.text)
+              }
             _hover={{
               transform: "scale(1.05)",
               transition: "transform 0.2s ease-in-out",
               bg: "#000",
             }}
           >
-            <Link to={item.to} style={{ color: "#fff" }}>
+            <Link to={index === items.length - 3 ? "#" : item.to} style={{ color: "#fff" }}>
               <VStack>
                 <Box>
                   <Image src={item.icon} alt={item.icon} />

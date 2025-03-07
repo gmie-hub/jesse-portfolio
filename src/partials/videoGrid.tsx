@@ -20,14 +20,10 @@ const VideoGrid: FC<ComponentProps> = ({ controls, src }) => {
         h="100%"
         bg="#1B75C9"
         w="inherit"
-        borderRadius={{ base: "3xl", md: "4xl"}}
+        borderRadius={{ base: "2xl", md: "4xl" }}
         position="relative"
         overflow="hidden"
       >
-        {/* <Text fontSize="5xl" fontWeight="medium">
-        Pisearch AI
-      </Text> */}
-
         <Box
           position="absolute"
           top="0"

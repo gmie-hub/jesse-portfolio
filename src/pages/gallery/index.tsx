@@ -20,6 +20,7 @@ const Gallery = () => {
   const controls = useAnimation();
   const lastWheelTime = useRef(0);
   const isMobile = useBreakpointValue({ base: true, md: false });
+  const galleryRef = useRef<HTMLDivElement>(null);
 
   const handleWheel = (event: WheelEvent) => {
     const now = Date.now();
@@ -47,41 +48,38 @@ const Gallery = () => {
     }
   };
 
-  // const handleDragEnd = (event: any, info: PanInfo) => {
-  //   const { offset, velocity } = info;
-  //   const swipeThreshold = 50;
-  //   const direction =
-  //     offset.x > swipeThreshold
-  //       ? "right"
-  //       : offset.x < -swipeThreshold
-  //       ? "left"
-  //       : null;
-
-  //   if (direction === "left" && activeIndex < images.length - 1) {
-  //     setActiveIndex((prev) => prev + 1);
-  //   } else if (direction === "right" && activeIndex > 0) {
-  //     setActiveIndex((prev) => prev - 1);
-  //   }
-  // };
-
   useEffect(() => {
-    if (!isMobile) {
-      window.addEventListener("wheel", handleWheel);
-      return () => window.removeEventListener("wheel", handleWheel);
+    const galleryElement = galleryRef.current;
+    
+    if (galleryElement && !isMobile) {
+      galleryElement.addEventListener("wheel", handleWheel);
+      return () => galleryElement.removeEventListener("wheel", handleWheel);
     }
   }, [activeIndex]);
 
   const thumbnailSize = Math.max(50 - images.length * 2, 30);
 
   return (
-    <Box w="full" bg="rgba(0, 0, 0, 0.5)" overflow="hidden">
-      <HStack h="full" my="2">
+    <Box
+      ref={galleryRef}
+      w="100%"
+      h="100%"
+      bg="rgba(0, 0, 0, 0.5)"
+      overflow="auto"
+      py="2"
+      pe={{ md: "1" }}
+    >
+      <HStack
+        h="100%"
+        borderRadius={{ md: "2xl" }}
+        bg="rgba(30, 30, 30, 0.50)"
+      >
         {!isMobile && (
           <Stack
             justifyContent="space-between"
             h="full"
-            ms={{ md: "2"}}
-            me={{ md: "5"}}
+            ms={{ md: "2" }}
+            me={{ md: "5" }}
             pt="3"
             pb="6"
             borderRadius="md"
@@ -91,9 +89,9 @@ const Gallery = () => {
           </Stack>
         )}
 
-        <Box w="full" m={{ md: "1" }}>
-          <ProjectCard>
-            <Stack h="100vh">
+        <Box w="full" h="100%">
+          <ProjectCard h="100%">
+            <Stack h="100%">
               <Stack>
                 <Text textAlign="start" fontWeight="semibold">
                   Gallery

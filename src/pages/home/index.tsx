@@ -62,7 +62,7 @@ const Home = () => {
         // User is scrolling down
         setScrollProgress((prev) => Math.min(prev + 10, 100));
       } else {
-        // User is scrolling up (optional: allow reversing effect)
+        // User is scrolling up 
         setScrollProgress((prev) => Math.max(prev - 10, 0));
       }
 
@@ -90,6 +90,7 @@ const Home = () => {
   const handleClick = () => {
     setClicked(true);
   };
+  
   return (
     <Container
       h="100vh"

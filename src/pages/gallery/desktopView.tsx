@@ -17,7 +17,7 @@ const DesktopView: FC<DesktopViewProps> = ({
   thumbnailSize,
 }) => {
   return (
-    <HStack flex="1">
+    <HStack flex="1" alignItems="center">
       <Flex w="full" minH="100%" justifyContent="center" alignItems="center">
         <MotionImage
           key={activeIndex}
@@ -31,10 +31,12 @@ const DesktopView: FC<DesktopViewProps> = ({
 
       <VStack
         gap={1}
-        position="absolute"
+        // position="absolute"
         right={5}
-        top="50%"
-        transform="translateY(-50%)"
+        // top="50%"
+        // transform="translateY(-50%)"
+        justifyContent="center"
+        h="full"
       >
         {images.map((src, index) => (
           <Box

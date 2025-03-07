@@ -1,18 +1,17 @@
-import {
-  Box,
-  Container,
-  Flex,
-  Grid,
-  useBreakpointValue,
-} from "@chakra-ui/react";
+import { Box, Flex, Grid, useBreakpointValue } from "@chakra-ui/react";
 import routes from "@jes/routes";
 import { useState } from "react";
 import { Outlet, useLocation } from "react-router-dom";
 import Sidebar from "./sidebar";
 import MobileNav from "./mobileNav";
+import { motion } from "framer-motion";
+import ProjectDrawerContent from "./projectDrawerContent";
+
+const MotionBox = motion(Box);
 
 const Layout = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const [isProjectOpen, setIsProjectOpen] = useState<boolean>(false);
   const isSmallScreen = useBreakpointValue({ base: true, md: false });
   const location = useLocation();
 
@@ -22,16 +21,13 @@ const Layout = () => {
   const toggleSidebar = () => setIsSidebarOpen(!isSidebarOpen);
 
   return (
-    <Container
-      minW="100vw"
-      minH="100vh"
+    <Box
       position="relative"
       p="0"
-      overflow="hidden"
+      overflow="auto"
       background={
         isMyAIRoute
-          ? // ? '#CAD9FF'
-            "linear-gradient(to bottom right, #7647ED87 2%, #CAD9FF 20%);"
+          ? "linear-gradient(to bottom right, #7647ED87 2%, #CAD9FF 20%);"
           : "none"
       }
     >
@@ -58,36 +54,46 @@ const Layout = () => {
       )}
 
       <Grid
-        templateColumns={isSmallScreen ? "1fr" : "54px 1fr"}
+        templateColumns={
+          isSmallScreen
+            ? "1fr"
+            : isProjectOpen
+            ? "54px calc(100% - 3.8%)"
+            : "54px 1fr"
+        }
         position="relative"
         zIndex="1"
-        overflow="hidden"
-        w="100vw"
-        h="100vh"
+        transition="all 0.4s ease-in-out"
       >
         {!isSmallScreen && (
           <Box position="sticky">
-            <Sidebar />
+            <Sidebar setIsProjectOpen={setIsProjectOpen} />
           </Box>
         )}
 
-        <MobileNav
-          isSidebarOpen={isSidebarOpen}
-          isSmallScreen={isSmallScreen}
-          toggleSidebar={toggleSidebar}
-        />
+        {isProjectOpen && <ProjectDrawerContent />}
 
-        <Flex
+        {isSmallScreen && (
+          <MobileNav
+            isSidebarOpen={isSidebarOpen}
+            isSmallScreen={isSmallScreen}
+            toggleSidebar={toggleSidebar}
+          />
+        )}
+
+        <MotionBox
+          as={Flex}
           justifyContent="center"
           zIndex="2"
-          overflow="hidden"
-          w="100%"
+          overflow={isProjectOpen ? "hidden" : "auto"}
           h="100%"
+          animate={{ marginLeft: isProjectOpen ? "355px" : "0" }}
+          transition={{ duration: 0.5, ease: "easeInOut" }}
         >
           <Outlet />
-        </Flex>
+        </MotionBox>
       </Grid>
-    </Container>
+    </Box>
   );
 };
 
